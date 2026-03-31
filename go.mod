@@ -1,6 +1,7 @@
-module example.com/gameInGolang
+go 1.26
 
-go 1.14
+require github.com/nsf/termbox-go v1.1.1
 
+require github.com/mattn/go-runewidth v0.0.9 // indirect
 
-require github.com/nsf/termbox-go v1.1.1 // indirect
+module example_2dgame
