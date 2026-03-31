@@ -1,6 +1,10 @@
 package main
 
-import "github.com/nsf/termbox-go"
+import (
+	"time"
+
+	"github.com/nsf/termbox-go"
+)
 
 func main() {
 	err := termbox.Init()
@@ -17,7 +21,8 @@ func main() {
 		}
 	}()
 
-	termGame.NewGame()
+	
+	g := NewGame(20, 10)
 
 	g.Render()
 
@@ -25,7 +30,6 @@ func main() {
 		select {
 		case ev := <-eventQueue:
 			if ev.Type == termbox.EventKey {
-
 				switch {
 				case ev.Key == termbox.KeyArrowDown:
 					g.Direction = "Down"
@@ -39,13 +43,13 @@ func main() {
 				case ev.Key == termbox.KeyArrowUp:
 					g.Direction = "Up"
 					g.MoveUp()
-				case ev.ch == 'q' || ev.Key == termbox.KeyEsc || ev.Key == termbox.KeyCtrlc:
+				case ev.Ch == 'q' || ev.Key == termbox.KeyEsc || ev.Key == termbox.KeyCtrlC:
 					return
 				}
 			}
 		default:
 			g.Render()
+			time.Sleep(50 * time.Millisecond) // CPU жүктемесін азайту үшін
 		}
 	}
-
 }
